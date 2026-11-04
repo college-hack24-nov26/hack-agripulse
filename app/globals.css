@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-leaf-900: #143426;
   --color-leaf-700: #1f4d3a;
@@ -28,6 +30,116 @@ body {
   font-family: var(--font-sans);
 }
 
+html.dark,
+.dark {
+  --color-cream: #151d18;
+  --color-sand: #0c120f;
+  --color-ink: #f1f7f3;
+  --color-muted: #a0b2a7;
+  --color-line: #283a30;
+  --color-leaf-100: #1c3629;
+  --color-leaf-50: #162a20;
+  --color-soil-100: #3c2317;
+  --color-gold-100: #382b11;
+  color-scheme: dark;
+}
+
+html.dark body,
+body.dark {
+  background-color: #0c120f;
+  color: #f1f7f3;
+}
+
+html.dark .bg-cream,
+.dark .bg-cream {
+  background-color: #151d18 !important;
+}
+
+html.dark .bg-white,
+.dark .bg-white {
+  background-color: #1c2721 !important;
+  color: #f1f7f3 !important;
+}
+
+html.dark .text-ink,
+.dark .text-ink {
+  color: #f1f7f3 !important;
+}
+
+html.dark .text-muted,
+.dark .text-muted {
+  color: #a0b2a7 !important;
+}
+
+html.dark .border-line,
+.dark .border-line {
+  border-color: #283a30 !important;
+}
+
+html.dark header,
+.dark header {
+  background-color: rgba(21, 29, 24, 0.95) !important;
+  border-color: #283a30 !important;
+}
+
+html.dark nav,
+.dark nav {
+  background-color: rgba(28, 39, 33, 0.95) !important;
+  border-color: #283a30 !important;
+}
+
+html.dark input,
+html.dark select,
+html.dark textarea,
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #1c2721 !important;
+  color: #f1f7f3 !important;
+  border-color: #283a30 !important;
+}
+
+/* Dark text colours used across the app would disappear on the dark panels */
+html.dark .text-leaf-950,
+html.dark .text-leaf-900,
+html.dark .text-leaf-800,
+html.dark .text-leaf-700 {
+  color: #a8dcbd !important;
+}
+
+html.dark .text-slate-900,
+html.dark .text-slate-800,
+html.dark .text-slate-700 {
+  color: #f1f7f3 !important;
+}
+
+html.dark .text-slate-600,
+html.dark .text-slate-500,
+html.dark .text-slate-400 {
+  color: #a0b2a7 !important;
+}
+
+html.dark .text-soil {
+  color: #e59a78 !important;
+}
+
+html.dark .text-\[\#6b4708\] {
+  color: #f2d795 !important;
+}
+
+html.dark .text-\[\#28507a\] {
+  color: #a9c8ea !important;
+}
+
+html.dark .text-\[\#7a3519\] {
+  color: #efb094 !important;
+}
+
+html.dark .bg-slate-50,
+html.dark .bg-slate-100 {
+  background-color: #1c2721 !important;
+}
+
 :focus-visible {
   outline: 3px solid var(--color-gold);
   outline-offset: 2px;
@@ -37,4 +149,20 @@ input,
 select,
 textarea {
   font-size: 16px; /* avoid iOS zoom on focus */
+}
+
+/* Mandi Mitra: steps slide in, a saved check pops; nothing moves for people who turn motion off */
+@keyframes mm-step-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes mm-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.mm-step { animation: mm-step-in 180ms ease-out; }
+.mm-pop { animation: mm-pop 220ms ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .mm-step, .mm-pop { animation: none; }
 }

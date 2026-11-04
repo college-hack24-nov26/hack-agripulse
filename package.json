@@ -8,9 +8,21 @@
     "start": "next start",
     "lint": "eslint",
     "check:lifecycle": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/lifecycle.check.ts",
-    "check:marathi": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/marathi-numbers.check.ts"
+    "check:dryness": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/dryness.check.ts",
+    "check:enterprise": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/enterprise.check.ts",
+    "check:sha256": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/sha256.check.ts",
+    "check:field": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/fieldHealth.check.ts",
+    "check:marathi": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/marathi-numbers.check.ts",
+    "check:briefing": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/farm-briefing.check.ts",
+    "check:grades": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/grades.check.ts",
+    "check:profit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/mandi/profit.check.ts",
+    "tts:pregen": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/pregen-tts.ts",
+    "check:crops": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/crops/validate.check.ts",
+    "crops:index": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/gen-crop-index.ts"
   },
   "dependencies": {
+    "leaflet": "1.9.4",
+    "leaflet-draw": "1.0.4",
     "lucide-react": "^0.460.0",
     "next": "15.5.28",
     "react": "19.1.0",
@@ -19,6 +31,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/leaflet": "1.9.12",
+    "@types/leaflet-draw": "1.0.11",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -21,6 +21,8 @@ import {
   Scale,
   ShoppingBasket,
   Sprout,
+  Sun,
+  Moon,
   UserRound,
   X,
 } from "lucide-react";
@@ -32,7 +34,7 @@ import { VoiceHelpHost } from "./speech";
 export const ROLE_HOME: Record<Role, string> = { farmer: "/home", mitra: "/mitra", buyer: "/buyer", admin: "/admin" };
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
-  const { state, account, hydrated, toastMsg, l, setLang, resetAll, logout } = useStore();
+  const { state, account, hydrated, toastMsg, l, setLang, setTheme, toggleTheme, resetAll, logout } = useStore();
   const pathname = usePathname();
   const router = useRouter();
   const [menu, setMenu] = useState(false);
@@ -50,6 +52,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     document.documentElement.lang = state.lang === "mr" ? "mr" : "en";
   }, [state.lang]);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", state.theme === "dark");
+  }, [state.theme]);
+
   const roleLabel: Record<Role, string> = {
     farmer: l("Farmer / entrepreneur", "शेतकरी / उद्योजक"),
     mitra: l("Gaon Mandi Mitra", "गाव मंडी मित्र"),
@@ -64,7 +70,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           { href: "/crops", label: l("My Farm", "माझी शेती"), icon: <Sprout size={22} /> },
           { href: "/crop-check", label: l("Crop Check", "पीक तपासणी"), icon: <ScanEye size={22} /> },
           { href: "/schemes", label: l("Schemes", "योजना"), icon: <Landmark size={22} /> },
-          { href: "/mandi", label: l("Mandi Mitra", "मंडी मित्र"), icon: <Scale size={22} />, match: ["/sell"] },
+          { href: "/sell", label: l("Mandi Mitra", "मंडी मित्र"), icon: <Scale size={22} />, match: ["/mandi"] },
           { href: "/business", label: l("Business", "व्यवसाय"), icon: <Briefcase size={22} />, match: ["/calculator"] },
         ]
       : state.role === "mitra"
@@ -97,7 +103,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-cream shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_10px_40px_rgba(30,42,36,0.08)]">
+    <div className={cx("mx-auto flex min-h-dvh max-w-md flex-col bg-cream shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_10px_40px_rgba(30,42,36,0.08)]", state.theme === "dark" && "dark")}>
       {!isWelcome && (
         <header className="sticky top-0 z-30 border-b border-line bg-cream/95 backdrop-blur">
           <div className="flex items-center justify-between gap-2 px-4 py-2.5">
@@ -120,6 +126,24 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 aria-label={l("Change language", "भाषा बदला")}
               >
                 {state.lang === "en" ? "मराठी" : "English"}
+              </button>
+              <button
+                onClick={() => toggleTheme()}
+                className="flex min-h-10 items-center gap-1.5 rounded-full border border-line bg-white px-3 text-sm font-semibold text-leaf-700"
+                aria-label={l("Toggle bright and dark mode", "दिवस / रात्र मोड बदला")}
+                title={state.theme === "dark" ? l("Switch to Bright Mode", "दिवस मोड") : l("Switch to Dark Mode", "रात्र मोड")}
+              >
+                {state.theme === "dark" ? (
+                  <>
+                    <Sun size={17} className="text-amber-500" />
+                    <span>{l("Bright", "दिवस")}</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon size={17} />
+                    <span>{l("Dark", "रात्र")}</span>
+                  </>
+                )}
               </button>
               <button
                 onClick={() => setMenu(true)}
